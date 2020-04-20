@@ -1,16 +1,16 @@
-import { tipoContas } from "../enums/tipoContas";
-import ValorInvalido from "../errors/valorInvalido";
-import ValorExcedeLimiteDeSaque from "../errors/valorExcedeLimiteDeSaque";
-import SaldoInsuficiente from "../errors/saldoInsuficiente";
+import { TipoContas } from "../enums/TipoContas";
+import ValorInvalidoError from "../errors/ValorInvalidoError";
+import ValorExcedeLimiteDeSaqueError from "../errors/ValorExcedeLimiteDeSaqueError";
+import SaldoInsuficienteError from "../errors/SaldoInsuficienteError";
 
 
 export class Conta {
 
     #numero: number;
     #saldo: number = 0;
-    #tipo: tipoContas;
+    #tipo: TipoContas;
 
-    constructor (numero: number, tipo: tipoContas) {
+    constructor (numero: number, tipo: TipoContas) {
         this.#numero = numero;
         this.#tipo = tipo;
     }
@@ -23,31 +23,31 @@ export class Conta {
         return this.#saldo;
     }
 
-    get tipo(): tipoContas {
+    get tipo(): TipoContas {
         return this.#tipo;
     }
 
     public depositar(valor: number) {
         if (valor <= 0) {
-            throw new ValorInvalido(`Valor deve ser maior que zero`);
+            throw new ValorInvalidoError(`Valor deve ser maior que zero`);
         }
         this.#saldo += valor;
     }
 
     public sacar(valor: number) {
         if (valor <= 0) {
-            throw new ValorInvalido(`Valor deve ser maior que zero`);
+            throw new ValorInvalidoError(`Valor deve ser maior que zero`);
         }
 
         const saqueLimite = process.env.SAQUE_LIMITE || 600;
         if (valor > saqueLimite) {
-            throw new ValorExcedeLimiteDeSaque(`Valor excedeu o limite de saque: ${saqueLimite}`);
+            throw new ValorExcedeLimiteDeSaqueError(`Valor excedeu o limite de saque: ${saqueLimite}`);
         }
 
         const saqueTaxa = (process.env.SAQUE_TAXA) ? parseFloat(process.env.SAQUE_TAXA) : parseFloat('0.30');
         const valorSaqueComTaxa = valor + saqueTaxa;
         if (this.#saldo < valorSaqueComTaxa) {
-            throw new SaldoInsuficiente(`O valor de saque mais taxa excede o saldo da conta`);
+            throw new SaldoInsuficienteError(`O valor de saque mais taxa excede o saldo da conta`);
         }
         
         this.#saldo -= valorSaqueComTaxa;

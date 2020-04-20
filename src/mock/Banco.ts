@@ -1,5 +1,5 @@
-import { Conta } from "../models/conta";
-import ContaNaoEncontrada from "../errors/contaNaoEncontrada";
+import { Conta } from "../models/Conta";
+import ContaNaoEncontradaError from "../errors/ContaNaoEncontradaError";
 
 export class Banco {
 
@@ -12,7 +12,7 @@ export class Banco {
     public getContaPorNumero(numero: number) : Conta {
         const contasEncontradas = this.contas.filter(conta => { return conta.numero === numero });
         if (contasEncontradas.length === 0) {
-            throw new ContaNaoEncontrada(`Conta "${numero}" não encontrada`);
+            throw new ContaNaoEncontradaError(`Conta "${numero}" não encontrada`);
         }
         return contasEncontradas[0];
     }

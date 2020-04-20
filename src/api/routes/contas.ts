@@ -1,7 +1,5 @@
 import { Router } from 'express';
 import contasController from '../../controllers/contas';
-import { Conta } from '../../models/conta';
-import contas from '../../controllers/contas';
 
 const route = Router();
 
