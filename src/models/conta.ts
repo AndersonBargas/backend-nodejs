@@ -6,33 +6,32 @@ import SaldoInsuficiente from "../errors/saldoInsuficiente";
 
 export class Conta {
 
-    private _numero: number;
-    private _saldo: number = 0;
-    private _tipo: tipoContas;
-
+    #numero: number;
+    #saldo: number = 0;
+    #tipo: tipoContas;
 
     constructor (numero: number, tipo: tipoContas) {
-        this._numero = numero;
-        this._tipo = tipo;
+        this.#numero = numero;
+        this.#tipo = tipo;
     }
 
     get numero(): number {
-        return this._numero;
+        return this.#numero;
     }
 
     get saldo(): number {
-        return this._saldo;
+        return this.#saldo;
     }
 
     get tipo(): tipoContas {
-        return this._tipo;
+        return this.#tipo;
     }
 
     public depositar(valor: number) {
         if (valor <= 0) {
             throw new ValorInvalido(`Valor deve ser maior que zero`);
         }
-        this._saldo += valor;
+        this.#saldo += valor;
     }
 
     public sacar(valor: number) {
@@ -47,11 +46,11 @@ export class Conta {
 
         const saqueTaxa = (process.env.SAQUE_TAXA) ? parseFloat(process.env.SAQUE_TAXA) : parseFloat('0.30');
         const valorSaqueComTaxa = valor + saqueTaxa;
-        if (this._saldo < valorSaqueComTaxa) {
+        if (this.#saldo < valorSaqueComTaxa) {
             throw new SaldoInsuficiente(`O valor de saque mais taxa excede o saldo da conta`);
         }
         
-        this._saldo -= valorSaqueComTaxa;
+        this.#saldo -= valorSaqueComTaxa;
     }
 
 }
