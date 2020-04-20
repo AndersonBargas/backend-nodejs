@@ -23,6 +23,10 @@ export class Conta {
         return this.#saldo;
     }
 
+    get saldoArredondado(): number {
+        return Math.round((this.#saldo + Number.EPSILON) * 100) / 100
+    }
+
     get tipo(): TipoContas {
         return this.#tipo;
     }
