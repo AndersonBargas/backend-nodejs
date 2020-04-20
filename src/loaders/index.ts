@@ -1,11 +1,13 @@
 import { Application } from 'express';
 import { Server } from 'http';
 
+import bancoLoader from './banco';
 import configsLoader from './configs';
 import expressLoader from './express';
 
 export default async ({ app }: { app: Application }) : Promise<Server> => {
 
+    bancoLoader({ app: app });
     configsLoader({ app: app });
     expressLoader({ app: app });
 
