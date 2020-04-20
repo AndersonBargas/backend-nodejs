@@ -10,6 +10,10 @@ export class Banco {
     }
 
     public getContaPorNumero(numero: number) : Conta {
+        if (isNaN(numero)) {
+            throw new ContaNaoEncontradaError(`Conta deve ser composta apenas por números`);
+        }
+
         const contasEncontradas = this.contas.filter(conta => { return conta.numero === numero });
         if (contasEncontradas.length === 0) {
             throw new ContaNaoEncontradaError(`Conta "${numero}" não encontrada`);
