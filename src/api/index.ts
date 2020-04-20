@@ -1,10 +1,10 @@
 import { Router } from 'express';
-import acoes from './routes/acoes';
+import contas from './routes/contas';
 
 export default () => {
     const app = Router();
 
-	acoes(app);
+	contas(app);
 
 	return app
 }
