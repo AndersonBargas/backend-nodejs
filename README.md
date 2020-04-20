@@ -1,4 +1,4 @@
-# Backend Node.js <img src="https://www.moovin.com.br/assets/images/svg/logo2.svg" width="50">
+# Backend Node.js
 
 ### Desafio
 
