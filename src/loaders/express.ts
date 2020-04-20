@@ -3,6 +3,7 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import apiRoutes from '../api';
+import ErroCustomizado from '../errors/ErroCustomizado';
 
 export default ({ app }: { app: express.Application }) => {
 
@@ -25,6 +26,13 @@ export default ({ app }: { app: express.Application }) => {
     app.use((err: Error, req: express.Request, res: express.Response, next: express.NextFunction) => {
         if (!err) {
             return next(err);
+        }
+
+        if (err instanceof ErroCustomizado) {
+            const erro = err as ErroCustomizado;
+            return res.status(erro.codigoDeRetorno).send({
+                "mensagem": erro.message,
+            }).end();
         }
 
         // an unknown error
