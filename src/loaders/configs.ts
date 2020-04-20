@@ -7,7 +7,9 @@ export default ({ app }: { app: Application }) => {
     app.set('apiPrefix', process.env.API_PREFIX || '/api');
     app.set('port', process.env.PORT || 5000);
 
+    app.set('moedaNome', process.env.MOEDA_NOME || 'biteris');
     app.set('moedaSimbolo', process.env.MOEDA_SIMBOLO || 'B$');
+    
     app.set('saqueLimite', process.env.SAQUE_LIMITE || 600);
     app.set('saqueTaxa', process.env.SAQUE_TAXA || 0.30);
 
