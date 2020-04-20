@@ -4,9 +4,9 @@
   "description": "",
   "license": "ISC",
   "scripts": {
-    "dev": "nodemon --watch \"src/\" -e ts -r ts-node/register src/server.ts",
+    "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/application.ts",
     "prod": "node dist/server.js",
-    "build": "tsc && copyup ./src/*.yaml ./src/**/*.yaml dist"
+    "build": "tsc"
   },
   "dependencies": {
     "lodash": "^4.17.11",
@@ -16,6 +16,7 @@
     "reflect-metadata": "^0.1.12"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.6",
     "@types/dotenv": "^8.2.0",
     "@types/express": "^4.16.0",
     "@types/node": "^13.13.0",
