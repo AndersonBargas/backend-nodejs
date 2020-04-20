@@ -1,21 +1,17 @@
-import * as express from 'express'
-import * as bodyParser from 'body-parser'
-import * as cors from 'cors'
-import * as dotenv from 'dotenv'
+import express from 'express'
+import loaders from './loaders'
 
-dotenv.config()
+const app = express();
 
-const application = express()
+async function appInit() {
 
-application.use(bodyParser.text())
-application.use(express.json())
-application.use(express.urlencoded({ extended: false }))
-application.use(cors())
+    try {
+        await loaders({ app: app });
+        return console.log('App is running at http://localhost:%d in %s mode', app.get('port'), app.get('env'))
+    } catch (err) {
+        return console.error(err);
+    }
 
-application.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+}
 
-application.set('port', process.env.APP_PORT || 5000)
-
-export { application }
+appInit();
