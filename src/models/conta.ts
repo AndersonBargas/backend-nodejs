@@ -45,7 +45,7 @@ export class Conta {
             throw new ValorExcedeLimiteDeSaque(`Valor excedeu o limite de saque: ${saqueLimite}`);
         }
 
-        const saqueTaxa = (process.env.SAQUE_TAXA) ? parseInt(process.env.SAQUE_TAXA) : parseInt('0.30');
+        const saqueTaxa = (process.env.SAQUE_TAXA) ? parseFloat(process.env.SAQUE_TAXA) : parseFloat('0.30');
         const valorSaqueComTaxa = valor + saqueTaxa;
         if (this._saldo < valorSaqueComTaxa) {
             throw new SaldoInsuficiente(`O valor de saque mais taxa excede o saldo da conta`);
