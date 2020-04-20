@@ -13,7 +13,10 @@ export default (app: Router) => {
         
         contasController.depositar(valorDeposito, numeroDaConta)
         .then((conta) => {
-            res.status(200).send(conta);
+            res.status(200)
+            .send({
+                "saldoAtual": conta.saldo
+            });
         })
         .catch(err => {
             next(err);
@@ -26,7 +29,9 @@ export default (app: Router) => {
 
         contasController.sacar(valorDeposito, numeroDaConta)
         .then((conta) => {
-            res.status(200).send(conta);
+            res.status(200).send({
+                "saldoAtual": conta.saldo
+            });
         })
         .catch(err => {
             next(err);
