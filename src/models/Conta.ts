@@ -41,7 +41,7 @@ export class Conta {
 
         const saqueLimite = process.env.SAQUE_LIMITE || 600;
         if (valor > saqueLimite) {
-            throw new ValorExcedeLimiteDeSaqueError(`Valor excedeu o limite de saque: ${saqueLimite}`);
+            throw new ValorExcedeLimiteDeSaqueError(`Valor excedeu o limite de saque: ${process.env.MOEDA_SIMBOLO}${saqueLimite}`);
         }
 
         const saqueTaxa = (process.env.SAQUE_TAXA) ? parseFloat(process.env.SAQUE_TAXA) : parseFloat('0.30');
