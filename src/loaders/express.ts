@@ -14,7 +14,7 @@ export default ({ app }: { app: express.Application }) => {
     app.use(cors())
 
     // api routes
-    app.use(process.env.API_PREFIX || '/api', apiRoutes());
+    app.use(app.get('apiPrefix'), apiRoutes());
 
     // invalid route handler
     app.use((req, res) => {
