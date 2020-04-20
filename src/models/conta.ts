@@ -1,4 +1,7 @@
 import { tipoContas } from "../enums/tipoContas";
+import ValorInvalido from "../errors/valorInvalido";
+import ValorExcedeLimiteDeSaque from "../errors/valorExcedeLimiteDeSaque";
+import SaldoInsuficiente from "../errors/saldoInsuficiente";
 
 
 export class Conta {
@@ -26,11 +29,29 @@ export class Conta {
     }
 
     public depositar(valor: number) {
+        if (valor <= 0) {
+            throw new ValorInvalido(`Valor deve ser maior que zero`);
+        }
         this._saldo += valor;
     }
 
     public sacar(valor: number) {
-        this._saldo -= valor;
+        if (valor <= 0) {
+            throw new ValorInvalido(`Valor deve ser maior que zero`);
+        }
+
+        const saqueLimite = process.env.SAQUE_LIMITE || 600;
+        if (valor > saqueLimite) {
+            throw new ValorExcedeLimiteDeSaque(`Valor excedeu o limite de saque: ${saqueLimite}`);
+        }
+
+        const saqueTaxa = (process.env.SAQUE_TAXA) ? parseInt(process.env.SAQUE_TAXA) : parseInt('0.30');
+        const valorSaqueComTaxa = valor + saqueTaxa;
+        if (this._saldo < valorSaqueComTaxa) {
+            throw new SaldoInsuficiente(`O valor de saque mais taxa excede o saldo da conta`);
+        }
+        
+        this._saldo -= valorSaqueComTaxa;
     }
 
 }
