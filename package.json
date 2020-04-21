@@ -2,6 +2,7 @@
   "name": "@moovin/backend-nodejs",
   "version": "1.0.0",
   "description": "",
+  "main": "src/application.ts",
   "license": "ISC",
   "scripts": {
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/application.ts",
