@@ -5,8 +5,8 @@
   "license": "ISC",
   "scripts": {
     "dev": "nodemon --watch 'src/**/*.ts' --exec 'ts-node' src/application.ts",
-    "prod": "node dist/server.js",
     "build": "tsc",
+    "start": "node dist/application.js",
     "test": "jest"
   },
   "dependencies": {
