@@ -12,7 +12,7 @@
         "url": "https://opensource.org/licenses/MIT"
       }
     },
-    "host": "backendatmnodejs.herokuapp.com/",
+    "host": "backendatmnodejs.herokuapp.com",
     "basePath": "/api",
     "schemes": [
       "https"
