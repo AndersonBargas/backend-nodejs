@@ -1,0 +1,164 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Backend de um ATM bancário desenvolvido em NodeJS.",
+      "version": "1.0.0",
+      "title": "Backend ATM NodeJS",
+      "contact": {
+        "email": "anderson@andersonbargas.com"
+      },
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:5000",
+    "basePath": "/api",
+    "schemes": [
+      "http"
+    ],
+    "paths": {
+      "/contas/{numeroDaConta}/deposito": {
+        "post": {
+          "tags": [
+            "depósito"
+          ],
+          "summary": "Deposita um valor em uma conta.",
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "numeroDaConta",
+              "in": "path",
+              "description": "Número da Conta",
+              "required": true,
+              "type": "number"
+            },
+            {
+                "in": "body",
+                "name": "body",
+                "description": "Valor a ser depositado.",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/Valor"
+                }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Retorno"
+              }
+            },
+            "400": {
+                "description": "Bad request",
+                "schema": {
+                  "$ref": "#/definitions/Erro"
+                }
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "412": {
+                "description": "Precondition failed",
+                "schema": {
+                  "$ref": "#/definitions/Erro"
+                }
+            },
+            "500": {
+              "description": "Unknown error"
+            }
+          }
+        }
+      },
+      "/contas/{numeroDaConta}/saque": {
+        "post": {
+          "tags": [
+            "saque"
+          ],
+          "summary": "Saca um valor de uma conta.",
+          "description": "",
+          "produces": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "name": "numeroDaConta",
+              "in": "path",
+              "description": "Número da Conta",
+              "required": true,
+              "type": "number"
+            },
+            {
+                "in": "body",
+                "name": "body",
+                "description": "Valor a ser sacado.",
+                "required": true,
+                "schema": {
+                  "$ref": "#/definitions/Valor"
+                }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "OK",
+              "schema": {
+                "$ref": "#/definitions/Retorno"
+              }
+            },
+            "400": {
+                "description": "Bad request",
+                "schema": {
+                  "$ref": "#/definitions/Erro"
+                }
+            },
+            "404": {
+              "description": "Not found"
+            },
+            "412": {
+                "description": "Precondition failed",
+                "schema": {
+                  "$ref": "#/definitions/Erro"
+                }
+            },
+            "500": {
+              "description": "Unknown error"
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "Valor": {
+        "type": "object",
+        "properties": {
+          "valor": {
+            "type": "number"
+          }
+        }
+      },
+      "Retorno": {
+        "type": "object",
+        "properties": {
+          "saldoAtual": {
+            "type": "number"
+          }
+        }
+      },
+      "Erro": {
+        "type": "object",
+        "properties": {
+          "mensagem": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "externalDocs": {
+      "description": "Find out more on our Github Repo",
+      "url": "https://github.com/AndersonBargas/backend-nodejs"
+    }
+  }

@@ -1,8 +1,10 @@
 import express from 'express';
 import bodyParser from 'body-parser'
 import cors from 'cors'
+import swaggerUi from 'swagger-ui-express';
 
 import apiRoutes from '../api';
+import * as swaggerDocument from '../api/docs/swagger.json';
 import ErroCustomizado from '../errors/ErroCustomizado';
 
 export default ({ app }: { app: express.Application }) => {
@@ -16,6 +18,9 @@ export default ({ app }: { app: express.Application }) => {
 
     // api routes
     app.use(app.get('apiPrefix'), apiRoutes());
+
+    // load swagger doc onto root path
+    app.use('/', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
   
     // invalid route handler
     app.use((req, res) => {
